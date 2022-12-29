@@ -5,7 +5,6 @@ import pyautogui
 import pygetwindow
 from rich.console import Console
 
-pyautogui.PAUSE = 1
 console = Console()
 
 dingtalk_window_title = '钉钉'
@@ -49,9 +48,9 @@ def make_live_window_on_front_desk():
 
 def make_end_window_on_front_desk():
     for window in pygetwindow.getWindowsWithTitle(end_window_title):
-        if window.size == (160, 28):
-            window.restore()
-            sleep(interval)
+        # if window.size == (160, 28):
+        #     window.restore()
+        #     sleep(interval)
 
         if window.size == (480, 640):
             window.activate()
