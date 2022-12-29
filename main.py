@@ -12,6 +12,7 @@ dingtalk_window_title = '钉钉'
 live_window_title = dingtalk_window_title
 end_window_title = ''
 delay = 60
+interval = 5
 
 live_icon_path = fr"{os.path.dirname(__file__)}\resource\Live.png"
 live_window_border_screenshot_path = fr"{os.path.dirname(__file__)}\resource\LiveWindowBorder.png"
@@ -24,11 +25,11 @@ def make_dingtalk_window_on_front_desk():
     for window in pygetwindow.getWindowsWithTitle(dingtalk_window_title):
         if window.size == (160, 28):
             window.restore()
-            sleep(2)
+            sleep(interval)
 
         if window.size == (1024, 640):
             window.activate()
-            sleep(2)
+            sleep(interval)
             break
 
 
@@ -38,11 +39,11 @@ def make_live_window_on_front_desk():
             case (1920, 1080):
                 window.activate()
                 pyautogui.press('esc')
-                sleep(2)
+                sleep(interval)
                 break
             case (1092, 588):
                 window.activate()
-                sleep(2)
+                sleep(interval)
                 break
 
 
@@ -50,11 +51,11 @@ def make_end_window_on_front_desk():
     for window in pygetwindow.getWindowsWithTitle(end_window_title):
         if window.size == (160, 28):
             window.restore()
-            sleep(2)
+            sleep(interval)
 
         if window.size == (480, 640):
             window.activate()
-            sleep(2)
+            sleep(interval)
             break
 
 
@@ -111,11 +112,11 @@ if __name__ == '__main__':
             elif is_live_end():
                 close_end_window()
                 console.log('[bold red]Close the live end window')
-                sleep(2)
+                sleep(interval)
             elif is_in_live():
                 enter_live()
                 console.log('[bold green]Enter the live room')
-                sleep(2)
+                sleep(interval)
             else:
                 with console.status("[bold blue]No live") as status:
                     while not is_in_live():
