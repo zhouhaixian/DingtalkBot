@@ -41,9 +41,9 @@ def close_end_window():
 
 
 if __name__ == '__main__':
-    try:
-        console.log("[bold blue]Please keep Dingtalk window at the front desk")
-        while True:
+    console.log("[bold blue]Please keep Dingtalk window at the front desk")
+    while True:
+        try:
             if is_watching_live():
                 with console.status("[bold cyan]Watching Live") as status:
                     while is_watching_live():
@@ -51,16 +51,16 @@ if __name__ == '__main__':
             elif is_live_end():
                 close_end_window()
                 console.log('[bold red]Close the live end window')
-                sleep(2)
+                sleep(5)
             elif is_in_live():
                 enter_live()
                 console.log('[bold green]Enter the live room')
-                sleep(2)
+                sleep(5)
             else:
                 with console.status("[bold blue]No live") as status:
                     while not is_in_live():
                         sleep(delay)
                         if is_watching_live():
                             break
-    except Exception:
-        console.print_exception(show_locals=True)
+        except Exception:
+            console.print_exception(show_locals=True)
