@@ -4,6 +4,7 @@ from time import sleep
 import pyautogui
 import pygetwindow
 from rich.console import Console
+from wakepy import keepawake
 
 console = Console()
 
@@ -98,34 +99,33 @@ def check_in():
 
 if __name__ == '__main__':
     console.log("[bold blue]DingtalkBot find window by its size. Please do not change it")
-    while True:
-        try:
-            pyautogui.moveTo(1, 1919)
-
-            # 阻止系统睡眠
-            pyautogui.press('volumedown')
-            pyautogui.press('volumeup')
-
-            if is_watching_live():
-                with console.status("[bold cyan]Watching live") as status:
-                    while is_watching_live():
-                        if can_check_in():
-                            check_in()
-                            console.log('[bold green]Check in')
-                        sleep(delay)
-            elif is_live_end():
-                close_end_window()
-                console.log('[bold red]Close the live end window')
-                sleep(interval)
-            elif is_in_live():
-                enter_live()
-                console.log('[bold green]Enter the live room')
-                sleep(interval)
-            else:
-                with console.status("[bold blue]No live") as status:
-                    while not is_in_live():
-                        sleep(delay)
-                        if is_watching_live():
-                            break
-        except Exception:
-            console.print_exception(show_locals=True)
+    with keepawake(keep_screen_awake=False):
+        while True:
+            try:
+                pyautogui.moveTo(1, 1919)
+                if is_watching_live():
+                    with console.status("[bold cyan]Watching live") as status:
+                        while is_watching_live():
+                            if can_check_in():
+                                check_in()
+                                console.log('[bold green]Check in')
+                            sleep(delay)
+                elif is_live_end():
+                    close_end_window()
+                    console.log('[bold red]Close the live end window')
+                    sleep(interval)
+                elif is_in_live():
+                    enter_live()
+                    console.log('[bold green]Enter the live room')
+                    sleep(interval)
+                else:
+                    with console.status("[bold blue]No live") as status:
+                        while not is_in_live():
+                            sleep(delay)
+                            if is_watching_live():
+                                break
+            except KeyboardInterrupt:
+                console.log('[bold red]Quit')
+                quit()
+            except Exception:
+                console.print_exception(show_locals=True)
