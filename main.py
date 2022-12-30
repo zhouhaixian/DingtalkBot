@@ -22,7 +22,12 @@ close_icon_path = fr"{os.path.dirname(__file__)}\resource\Close.png"
 
 
 def make_dingtalk_window_on_front_desk():
-    for window in pygetwindow.getWindowsWithTitle(dingtalk_window_title):
+    windows = pygetwindow.getWindowsWithTitle(dingtalk_window_title)
+
+    if len(windows) == 0:
+        raise Exception('Dingtalk window not found, please start Dingtalk')
+
+    for window in windows:
         if window.size == (160, 28):
             window.restore()
             sleep(interval)
@@ -98,7 +103,7 @@ def check_in():
 
 
 if __name__ == '__main__':
-    console.log("[bold blue]DingtalkBot find window by its size. Please do not change it")
+    console.log("[bold blue]DingtalkBot find window by its size. please do not change it")
     with keepawake(keep_screen_awake=False):
         while True:
             try:
