@@ -100,7 +100,12 @@ if __name__ == '__main__':
     console.log("[bold blue]DingtalkBot find window by its size. Please do not change it")
     while True:
         try:
-            pyautogui.moveTo(1, 1)
+            pyautogui.moveTo(1, 1919)
+
+            # 阻止系统睡眠
+            pyautogui.press('volumedown')
+            pyautogui.press('volumeup')
+
             if is_watching_live():
                 with console.status("[bold cyan]Watching live") as status:
                     while is_watching_live():
