@@ -126,6 +126,6 @@ if __name__ == '__main__':
                                 break
             except KeyboardInterrupt:
                 console.log('[bold red]Quit')
-                quit()
+                break
             except Exception:
                 console.print_exception(show_locals=True)
